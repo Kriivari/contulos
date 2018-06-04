@@ -1,0 +1,49 @@
+<%= form_with(model: result, local: true) do |form| %>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="result_place">Sijajärjestys</label>
+        <%= form.text_field :place, id: :result_name, size: '50', class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="result_placedescription">Sijan kuvaus (vapaaehtoinen)</label>
+        <%= form.text_field :placedescription, id: :result_placedescription, size: '50', class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="result_name">Sijoittuneen nimi</label>
+        <%= form.text_field :name, id: :result_name, size: '50', class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="result_description">Sijoituksen lisätiedot (linkit ym)</label>
+        <%= form.text_field :description, id: :result_description, size: '50', class: 'form-control' %>
+        <small>Voit käyttää <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">MarkDown-syntaksia</a>. Esim. linkin saat: [Linkin teksti](Linkin osoite)</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="actions">
+        <%= form.submit 'Lisää', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+
+  <div><%= form.hidden_field :tournament_id, id: :result_tournament_id, value: @tournament.id %></div>
+<% end %>

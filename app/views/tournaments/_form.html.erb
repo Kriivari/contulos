@@ -1,0 +1,39 @@
+<%= form_with(model: tournament, local: true) do |form| %>
+  <% if tournament.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tournament.errors.count, "error") %> prohibited this tournament from being saved:</h2>
+
+      <ul>
+      <% tournament.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="tournament_name">Turnauksen nimi</label>
+        <%= form.text_field :name, id: :tournament_name, size: '50', class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="tournament_genre">Genre</label><br/>
+        <%= form.select :genre, options_for_select(@genres), class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="actions">
+        <%= form.submit 'Talleta', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>

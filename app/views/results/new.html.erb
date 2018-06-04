@@ -1,0 +1,17 @@
+<h1>Sijoitukset</h1>
+
+<div class="row">
+  <div class="col">Turnaus: <%= @tournament.name %></div>
+</div>
+<% for result in @tournament.results %>
+  <div class="row">
+    <div class="col"><%= result.place %></div>
+    <div class="col"><%= result.placedescription %></div>
+    <div class="col"><%= result.name %></div>
+    <div class="col"><%= result.description %></div>
+  </div>
+<% end %>
+
+<%= render 'form', result: @result %>
+
+<%= link_to 'Takaisin', tournaments_path %>

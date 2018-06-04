@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Turnaukset</h1>
+
+<div class="row">
+  <div class="col">Nimi</div>
+  <div class="col">Genre</div>
+  <div class="col-9"></div>
+</div>
+<% @tournaments.each do |tournament| %>
+  <div class="row">
+    <div class="col"><%= tournament.name %></div>
+    <div class="col"><%= tournament.genre %></div>
+    <div class="col-9">
+      <%= link_to 'Muokkaa', edit_tournament_path(tournament) %>
+      <%= link_to 'Poista', tournament, method: :delete, data: { confirm: 'Oletko varma?' } %>
+    </div>
+  </div>
+  <% tournament.results.each do |result| %>
+    <div class="row">
+      <div class="col">&nbsp;</div>
+      <div class="col-2"><%= result.place %></div>
+      <div class="col-2"><%= result.placedescription %></div>
+      <div class="col-2"><%= result.name %></div>
+      <div class="col-2"><%= markdown(result.description) %></div>
+      <div class="col-3">
+        <%= link_to 'Muokkaa', edit_result_path(result) %>
+        <%= link_to 'Poista', result, method: :delete, data: { confirm: 'Oletko varma?' } %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<br>
+
+<%= link_to 'Uusi turnaus', new_tournament_path %>

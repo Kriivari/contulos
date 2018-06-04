@@ -1,0 +1,60 @@
+<aside class="main-sidebar">
+  <section class="sidebar">
+    <% if current_user %>
+      <div class="user-panel">
+        <div class="pull-left">
+          <strong><%= current_user.name %></strong>
+        </div>
+      </div>
+      <form action="#" class="sidebar-form" method="get">
+        <div class="input-group">
+          <input class="form-control" name="q" placeholder="<%= tc(:search) %>..." type="text" />
+          <span class="input-group-btn">
+          <button class="btn btn-flat" id="search-btn" name="search" type="submit">
+          <i class="fa fa-search">
+          </i></button></span>
+        </div>
+      </form>
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="active">
+          <%= link_to tc(:calendar_view), events_path(calendar: true) %></li>
+        </li>
+
+        <% if policy(current_user).admin? %>
+          <li class="treeview">
+            <a href="#"><span>Uusi</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+            <ul class="treeview-menu">
+              <li><%= link_to tc(:new) + ' ' + t(:event), new_event_path( type_id: 1 ) %></li>
+              <li><%= link_to tc(:new) + ' ' + t(:evening), new_event_path( type_id: 2 ) %></li>
+              <li><%= link_to tc(:new) + ' ' + t(:training), new_event_path( type_id: 3 ) %></li>
+              <li><%= link_to tc(:new) + ' ' + t(:other), new_event_path( type_id: 4 ) %></li>
+            </ul>
+          </li>
+        <% end %>
+
+        <li class="treeview">
+          <a href="#"><span>Ryhmät</span><i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <% current_user.eagroup_users.each do |eagroup| %>
+              <% if eagroup.role.viewable? %>
+                <li><%= link_to eagroup.eagroup.name, events_path( eagroup_id: eagroup.eagroup.id ) %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#"><span>Omat tiedot</span><i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li><%= link_to tc(:self_eagroups), eagroups_path( user_id: current_user.id ) %></li>
+            <li><%= link_to tc(:all_eagroups), eagroups_path %></li>
+            <li><%= link_to tc(:account_info), edit_user_registration_path %></li>
+          </ul>
+        </li>
+
+        <li class="footer"><%= link_to tc(:sign_out), destroy_user_session_path, method: :delete %></li>
+
+      </ul>
+    <% end %>
+  </section>
+</aside>
