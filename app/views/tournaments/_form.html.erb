@@ -24,7 +24,7 @@
     <div class="col">
       <div class="form-group">
         <label for="tournament_genre">Genre</label><br/>
-        <%= form.select :genre, options_for_select(@genres), class: 'form-control' %>
+        <%= form.select :genre, options_for_select(@genres, { selected: @tournament.genre }), class: 'form-control' %>
       </div>
     </div>
   </div>
