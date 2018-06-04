@@ -10,7 +10,11 @@ module ApplicationHelper
                                        underline: true,
                                        highlight: true
     )
-    return markdown.render(text).html_safe
+    if text
+      markdown.render(text).html_safe
+    else
+      nil
+    end
   end
 
 end

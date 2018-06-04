@@ -4,7 +4,7 @@ class TournamentsController < ApplicationController
   # GET /tournaments
   # GET /tournaments.json
   def index
-    @tournaments = Tournament.all
+    @tournaments = Tournament.all.order(:genre, :name)
   end
 
   # GET /tournaments/1
@@ -15,11 +15,12 @@ class TournamentsController < ApplicationController
   # GET /tournaments/new
   def new
     @tournament = Tournament.new
-    @genres = %w[Bofferiturnaus Figupelit Korttipelit KPS-turnaus Lautapelit Piirrustuskilpailu Pukukilpailu Realms\ of\ Ropecon Skenariokilpailu Taidenäyttely]
+    @genres = @tournament.genres
   end
 
   # GET /tournaments/1/edit
   def edit
+    @genres = @tournament.genres
   end
 
   # POST /tournaments
@@ -71,6 +72,6 @@ class TournamentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def tournament_params
-    params.require(:tournament).permit(:name,:genre)
+    params.require(:tournament).permit(:name,:genre,:description)
   end
 end
