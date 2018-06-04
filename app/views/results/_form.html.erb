@@ -5,6 +5,7 @@
       <div class="form-group">
         <label for="result_place">Sijajärjestys</label>
         <%= form.text_field :place, id: :result_name, size: '50', class: 'form-control' %>
+        <small>Tämä määrittää järjestyksen, jossa tulosrivit näytetään.</small>
       </div>
     </div>
   </div>
@@ -14,6 +15,7 @@
       <div class="form-group">
         <label for="result_placedescription">Sijan kuvaus (vapaaehtoinen)</label>
         <%= form.text_field :placedescription, id: :result_placedescription, size: '50', class: 'form-control' %>
+        <small>Tämä näytetään sijaluvun sijasta, jos tämä kenttä ei ole tyhjä.</small>
       </div>
     </div>
   </div>
