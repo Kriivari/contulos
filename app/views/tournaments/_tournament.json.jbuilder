@@ -1,2 +1,2 @@
-json.extract! tournament, :id, :created_at, :updated_at
+json.extract! tournament, :id, :name, :description, :genre, :created_at, :updated_at
 json.url tournament_url(tournament, format: :json)

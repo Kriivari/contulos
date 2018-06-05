@@ -4,7 +4,11 @@ class TournamentsController < ApplicationController
   # GET /tournaments
   # GET /tournaments.json
   def index
-    @tournaments = Tournament.all.order(:genre, :name)
+    @tournaments = {}
+    @genres = Tournament.new.genres
+    @genres.each do |genre|
+      @tournaments[genre.to_sym] = Tournament.where(genre: genre).order(:name)
+    end
   end
 
   # GET /tournaments/1

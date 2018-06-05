@@ -2,37 +2,34 @@
 
 <h1>Turnaukset</h1>
 
-<% genre = '' %>
-<% @tournaments.each do |tournament| %>
-  <% if genre != tournament.genre %>
-    <% genre = tournament.genre %>
-    <div class="row p-2"><div class="col-12"><h2><%= genre %></h2></div></div>
-  <% end %>
-  <div class="row">
-    <div class="col-3"><strong><%= tournament.name %></strong></div>
-    <div class="col-9">
-      <%= link_to 'Muokkaa', edit_tournament_path(tournament) %>
-      <%= link_to 'Poista', tournament, method: :delete, data: { confirm: 'Oletko varma?' } %>
-    </div>
-  </div>
-  <% tournament.results.order(:place).each do |result| %>
+<% @genres.each do |genre| %>
+  <div class="row p-2"><div class="col-12"><h2><%= genre %></h2></div></div>
+  <% @tournaments[genre.to_sym].each do |tournament| %>
     <div class="row">
-      <% if result.placedescription && result.placedescription.length > 0 %>
-        <div class="col-2"><%= result.placedescription %></div>
-      <% else %>
-        <div class="col-2"><%= result.place %></div>
-      <% end %>
-      <div class="col-3"><%= result.name %></div>
-      <div class="col-5"><%= markdown(result.description) %></div>
-      <div class="col-2">
-        <%= link_to 'Muokkaa', edit_result_path(result) %>
-        <%= link_to 'Poista', result, method: :delete, data: { confirm: 'Oletko varma?' } %>
+      <div class="col-3"><strong><%= tournament.name %></strong></div>
+      <div class="col-9">
+        <%= link_to 'Muokkaa', edit_tournament_path(tournament) %>
+        <%= link_to 'Poista', tournament, method: :delete, data: { confirm: 'Oletko varma?' } %>
       </div>
     </div>
+    <% tournament.results.order(:place).each do |result| %>
+      <div class="row">
+        <% if result.placedescription && result.placedescription.length > 0 %>
+          <div class="col-2"><%= result.placedescription %></div>
+        <% else %>
+          <div class="col-2"><%= result.place %></div>
+        <% end %>
+        <div class="col-3"><%= result.name %></div>
+        <div class="col-5"><%= markdown(result.description) %></div>
+        <div class="col-2">
+          <%= link_to 'Muokkaa', edit_result_path(result) %>
+          <%= link_to 'Poista', result, method: :delete, data: { confirm: 'Oletko varma?' } %>
+        </div>
+      </div>
+    <% end %>
+    <div class="row"><div class="col-12"><%= markdown(tournament.description) %></div></div>
   <% end %>
-  <div class="row"><div class="col-12"><%= markdown(tournament.description) %></div></div>
 <% end %>
-
 <br>
 
 <%= link_to 'Uusi turnaus', new_tournament_path %>
