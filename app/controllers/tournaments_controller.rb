@@ -4,10 +4,15 @@ class TournamentsController < ApplicationController
   # GET /tournaments
   # GET /tournaments.json
   def index
+    year = if params[:year]
+             params[:year].to_i
+           else
+             Time.now.year
+           end
     @tournaments = {}
     @genres = Tournament.new.genres
     @genres.each do |genre|
-      @tournaments[genre.to_sym] = Tournament.where(genre: genre).order(:name)
+      @tournaments[genre.to_sym] = Tournament.where(genre: genre, year: year).order(:name)
     end
   end
 
@@ -31,6 +36,7 @@ class TournamentsController < ApplicationController
   # POST /tournaments.json
   def create
     @tournament = Tournament.new(tournament_params)
+    @tournament.year = Time.now.year
 
     respond_to do |format|
       if @tournament.save
@@ -76,6 +82,6 @@ class TournamentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def tournament_params
-    params.require(:tournament).permit(:name,:genre,:description)
+    params.require(:tournament).permit(:name,:genre,:description,:year)
   end
 end
