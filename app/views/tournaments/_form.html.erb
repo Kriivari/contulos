@@ -42,7 +42,11 @@
   <div class="row">
     <div class="col">
       <div class="actions">
-        <%= form.submit 'Tallenna ja lisää sijoitukset', class: 'btn btn-primary' %>
+        <% if tournament.persisted? %>
+          <%= form.submit 'Tallenna', class: 'btn btn-primary' %>
+        <% else %>
+          <%= form.submit 'Tallenna ja lisää sijoitukset', class: 'btn btn-primary' %>
+        <% end %>
       </div>
     </div>
   </div>
